@@ -1,8 +1,10 @@
-﻿#pragma warning disable CS8618
+﻿using System.Threading.Channels;
+
+#pragma warning disable CS8618
 
 namespace BankAccount
 {
-    public class BankAccount
+    public class BankAccounts
     {
         private string AccountId { get; set; }
         private int Balance { get; set; }
@@ -11,7 +13,7 @@ namespace BankAccount
         /// <summary>
         /// Конструктор по умолчанию, все значения будут приведены к нулю
         /// </summary>
-        public BankAccount()
+        public BankAccounts()
         {
             CreateAccount();
         }
@@ -20,7 +22,7 @@ namespace BankAccount
         /// Конструктор, назначение начального баланса
         /// </summary>
         /// <param name="balance"></param>
-        public BankAccount(int balance)
+        public BankAccounts(int balance)
         {
             CreateAccount(balance);
         }
@@ -29,7 +31,7 @@ namespace BankAccount
         /// Конструктор, назначение типа банковского счёта
         /// </summary>
         /// <param name="accountType"></param>
-        public BankAccount(BankAccountType accountType)
+        public BankAccounts(BankAccountType accountType)
         {
             CreateAccount(0, accountType);
         }
@@ -39,14 +41,27 @@ namespace BankAccount
         /// </summary>
         /// <param name="balance"></param>
         /// <param name="accountType"></param>
-        public BankAccount(int balance, BankAccountType accountType)
+        public BankAccounts(int balance, BankAccountType accountType)
         {
             CreateAccount(balance, accountType);
         }
 
         private void CreateAccount(int balance = 0, BankAccountType accountType = BankAccountType.Current)
         {
-            Balance = balance;
+            if (balance < 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Нельзя создать счёт с отрицательным балансом, пожалуйста, " +
+                                  "проверьте корректность вводимых данных!!! " +
+                                  "Баланс на счёте будет равен нулю!!!");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine();
+            }
+            else
+            {
+                Balance = balance;
+            }
+
             AccountId = CreatorIdForBankAccount.GenerateId();
             AccountType = accountType;
         }

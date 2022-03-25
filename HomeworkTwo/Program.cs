@@ -6,7 +6,10 @@ namespace Homework
     {
         public static void Main()
         {
-            TestForHomeworkTwo.Start();
+            string str = InteractionWithString.ReverseString("abcd");
+            Console.WriteLine(str);
+
+            //TestForHomeworkTwo.Start();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using BankAccount;
+﻿using System.Diagnostics;
+using BankAccount;
 
 namespace Homework
 {
@@ -6,10 +7,19 @@ namespace Homework
     {
         public static void Main()
         {
-            string str = InteractionWithString.ReverseString("abcd");
-            Console.WriteLine(str);
+            InteractionWithString str = new();
+            string temp = "Кучма";
+            str.SearchMail(ref temp);
+
+            Console.WriteLine(temp);
+
+            //string str = InteractionWithString.ReverseString("abcd");
+            //Console.WriteLine(str);
+            //Console.ReadKey();
 
             //TestForHomeworkTwo.Start();
+
+
         }
     }
 }

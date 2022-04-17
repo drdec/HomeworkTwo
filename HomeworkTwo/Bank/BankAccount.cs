@@ -90,7 +90,7 @@ namespace BankAccount
         /// снятие средств с банковской карточки
         /// </summary>
         /// <param name="money"></param>
-        public void Withdrawal(int money)
+        public bool Withdrawal(int money)
         {
             if (money < 0)
             {
@@ -98,6 +98,7 @@ namespace BankAccount
                 Console.WriteLine("Извивните, введите корректное значение!");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine();
+                return false;
             }
             else if (Balance - money < 0 )
             {
@@ -105,10 +106,25 @@ namespace BankAccount
                 Console.WriteLine("Извивните, у Вас недостаточно средств, пожалуйста, введите корректное значение!");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine();
+                return false;
             }
             else
             {
                 Balance -= money;
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Перевод средст с данного счёта, на счёт другого аккаунта
+        /// </summary>
+        /// <param name="accounts"></param>
+        /// <param name="money"></param>
+        public void TransferringFunds(BankAccounts accounts, int money)
+        {
+            if (Withdrawal(money))
+            {
+                accounts.PutMoneyIn(money);
             }
         }
     }
